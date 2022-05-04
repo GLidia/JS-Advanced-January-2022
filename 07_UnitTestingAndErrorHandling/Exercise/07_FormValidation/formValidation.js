@@ -27,7 +27,6 @@ function validate() {
             usernameInputElement.style.borderColor = "red";
             isValid = false;
         } else {
-            //usernameInputElement.style.border = "none" (if I write this, then it does not light up in red if it's incorrect later)
             usernameInputElement.style.borderColor = "";
         }
 
@@ -39,7 +38,6 @@ function validate() {
             emailInputElement.style.borderColor = "red";
             isValid = false;
         } else {
-            //.style.border = "none" (if I write this, then it does not light up in red if it's incorrect later)
             emailInputElement.style.borderColor = "";
         }
 
@@ -54,7 +52,6 @@ function validate() {
             passwordConfirmInputElement.style.borderColor = "red";
             isValid = false;
         } else {
-            //.style.border = "none" (if I write this, then it does not light up in red if it's incorrect later)
             passwordInputElement.style.borderColor = "";
             passwordConfirmInputElement.style.borderColor = "";
         }
@@ -67,7 +64,6 @@ function validate() {
                 companyNumberInputElement.style.borderColor = "red";
                 isValid = false;
             } else {
-                //.style.border = "none" (if I write this, then it does not light up in red if it's incorrect later)
                 companyNumberInputElement.style.borderColor = "";
             }
         }
