@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Contacts Builder</title>
+</head>
+
+<body>
+    <div id="main">
+        <article>
+            <div class="title">{firstName lastName}<button>&#8505;</button></div>
+            <div class="info">
+                <span>&phone; {phone}</span>
+                <span>&#9993; {email}</span>
+            </div>
+        </article>
+    </div>
+</body>
+
+<script>
+
+    class Contact{
+
+        constructor(firstName, lastName, phone, email){
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.phone = phone;
+            this.email = email;
+            this._online = false;
+        }
+
+        get online (){
+            return this._online;
+        }
+
+        set online(value){
+            this._online = value;
+            let elements = document.querySelectorAll("div [class='title']");
+
+            for(let el of elements){
+
+                if (el.textContent.includes(`${this.firstName} ${this.lastName}`)){
+                    if(this._online){
+                        el.classList.add("online");
+                    } else {
+                        el.classList.remove("online");
+                    }
+                }
+            }
+
+        }
+
+        render(id){
+            let newArticleElement = document.createElement("article");
+
+            let newTitleDivElement = document.createElement("div");
+            newTitleDivElement.classList.add("title");
+            newTitleDivElement.textContent = `${this.firstName} ${this.lastName}`;
+            if (this._online == true){
+                newTitleDivElement.classList.add("online");
+            } else if (this._online == false){
+                newTitleDivElement.classList.remove("online");
+            }
+
+            let newButtonElement = document.createElement("button");
+            newButtonElement.textContent = `\u2139`;
+            newButtonElement.addEventListener("click", function(e){
+                let elementToShow = e.currentTarget.parentNode.parentNode.querySelector("div [class='info']");
+                if (elementToShow.style.display == "none"){
+                    elementToShow.style.display = "block";
+                } else if (elementToShow.style.display == "block"){
+                    elementToShow.style.display = "none";
+                }
+            });
+            newTitleDivElement.appendChild(newButtonElement);
+
+            let newInfoDivElement = document.createElement("div");
+            newInfoDivElement.classList.add("info");
+            newInfoDivElement.style.display = "none";
+            let phoneSpanElement = document.createElement("span");
+            phoneSpanElement.textContent = `\u260E ${this.phone}`;
+            let emailSpanElement = document.createElement("span");
+            emailSpanElement.textContent = `\u2709 ${this.email}`;
+            newInfoDivElement.appendChild(phoneSpanElement);
+            newInfoDivElement.appendChild(emailSpanElement);
+
+            newArticleElement.appendChild(newTitleDivElement);
+            newArticleElement.appendChild(newInfoDivElement);
+
+            document.getElementById(id).appendChild(newArticleElement);
+        }
+    }
+
+
+    let contacts = [
+  new Contact("Ivan", "Ivanov", "0888 123 456", "i.ivanov@gmail.com"),
+  new Contact("Maria", "Petrova", "0899 987 654", "mar4eto@abv.bg"),
+  new Contact("Jordan", "Kirov", "0988 456 789", "jordk@gmail.com")
+];
+contacts.forEach(c => c.render('main'));
+
+setTimeout(() => contacts[1].online = true, 2000);
+setTimeout(() => contacts[1].online = false, 2000);
+
+
+
+</script>
+
+</html>
